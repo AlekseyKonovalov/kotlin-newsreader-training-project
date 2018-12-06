@@ -39,7 +39,8 @@ public class MainActivity extends AppCompatActivity implements MainActivityView{
 
         database = Room.databaseBuilder(getApplicationContext(),
                 AppDatabase.class, "rss2-database")
-                .addMigrations(Migrations.MIGRATION_1_2, Migrations.MIGRATION_2_3, Migrations.MIGRATION_3_4)
+                .addMigrations(Migrations.MIGRATION_1_2, Migrations.MIGRATION_2_3, Migrations.MIGRATION_3_4,
+                        Migrations.MIGRATION_4_5)
                 .fallbackToDestructiveMigration()
                 .build();
 
