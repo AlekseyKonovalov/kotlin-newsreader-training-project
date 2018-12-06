@@ -27,4 +27,12 @@ public class Migrations {
                     + "source TEXT,  PRIMARY KEY(sourceName))");
         }
     };
+
+    public static final Migration MIGRATION_4_5 = new Migration(4, 5) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            database.execSQL("ALTER TABLE SourceEntity " +
+                    "RENAME COLUMN title TO name");
+        }
+    };
 }

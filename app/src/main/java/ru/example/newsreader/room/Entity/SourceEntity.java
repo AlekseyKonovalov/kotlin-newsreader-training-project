@@ -8,16 +8,16 @@ import android.support.annotation.NonNull;
 public class SourceEntity {
     @NonNull
     @PrimaryKey
-    private String title;
+    private String name;
     private String url;
 
     @NonNull
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
-    public void setTitle(@NonNull String title) {
-        this.title = title;
+    public void setName(@NonNull String name) {
+        this.name = name;
     }
 
     public String getUrl() {

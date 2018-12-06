@@ -8,7 +8,6 @@ import android.arch.persistence.room.Update;
 
 import java.util.List;
 
-import ru.example.newsreader.room.Entity.ArticleEntity;
 import ru.example.newsreader.room.Entity.SourceEntity;
 
 @Dao
@@ -23,7 +22,7 @@ public interface SourceDao {
     void delete(SourceEntity sourceEntity);
 
     @Query("SELECT * FROM SourceEntity")
-    List<ArticleEntity> getAllSources();
+    List<SourceEntity> getAllSources();
 
     @Query("DELETE FROM SourceEntity")
     void deleteAll();

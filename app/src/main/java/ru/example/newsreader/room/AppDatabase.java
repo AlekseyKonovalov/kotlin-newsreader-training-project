@@ -8,7 +8,7 @@ import ru.example.newsreader.room.Dao.SourceDao;
 import ru.example.newsreader.room.Entity.ArticleEntity;
 import ru.example.newsreader.room.Entity.SourceEntity;
 
-@Database(entities = {ArticleEntity.class, SourceEntity.class /*, AnotherEntityType.class, AThirdEntityType.class */}, version = 4)
+@Database(entities = {ArticleEntity.class, SourceEntity.class /*, AnotherEntityType.class, AThirdEntityType.class */}, version = 5)
 public abstract class AppDatabase extends RoomDatabase {
 
     public abstract ArticleDao getArticleDao();
