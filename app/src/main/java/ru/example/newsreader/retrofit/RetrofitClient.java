@@ -1,3 +1,4 @@
+/*
 package ru.example.newsreader.retrofit;
 
 import retrofit2.Call;
@@ -15,8 +16,9 @@ public class RetrofitClient {
     }
 
     public Call<RSSFeed> getArticles(){
-        HabrService service = retrofit.create(HabrService.class);
+        HabrServiceKt service = retrofit.create(HabrServiceKt.class);
         Call<RSSFeed> repos = service.getArticles();
         return repos;
     }
 }
+*/

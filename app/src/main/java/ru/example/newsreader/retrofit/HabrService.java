@@ -1,3 +1,4 @@
+/*
 package ru.example.newsreader.retrofit;
 
 import retrofit2.Call;
@@ -8,3 +9,4 @@ public interface HabrService {
     @GET("rss/hubs/all/")
     Call<RSSFeed> getArticles();
 }
+*/

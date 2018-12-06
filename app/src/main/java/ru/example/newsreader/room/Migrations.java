@@ -1,3 +1,4 @@
+/*
 package ru.example.newsreader.room;
 
 import android.arch.persistence.db.SupportSQLiteDatabase;
@@ -36,3 +37,4 @@ public class Migrations {
         }
     };
 }
+*/

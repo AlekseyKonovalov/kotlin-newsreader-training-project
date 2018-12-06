@@ -1,17 +1,19 @@
+/*
 package ru.example.newsreader.room.Entity;
 
 import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
 import ru.example.newsreader.models.Article;
 
-@Entity(foreignKeys = @ForeignKey(
+@Entity*/
+/*(foreignKeys = @ForeignKey(
         entity = SourceEntity.class,
         parentColumns = "name",
         childColumns = "source",
-        onDelete =  ForeignKey.CASCADE))
+        onDelete =  ForeignKey.CASCADE))*//*
+
 public class ArticleEntity {
     @NonNull
     @PrimaryKey
@@ -70,3 +72,4 @@ public class ArticleEntity {
         this.source = source;
     }
 }
+*/

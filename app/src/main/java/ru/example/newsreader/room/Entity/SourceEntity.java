@@ -1,3 +1,4 @@
+/*
 package ru.example.newsreader.room.Entity;
 
 import android.arch.persistence.room.Entity;
@@ -28,3 +29,4 @@ public class SourceEntity {
         this.url = url;
     }
 }
+*/

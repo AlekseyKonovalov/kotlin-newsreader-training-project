@@ -1,3 +1,4 @@
+
 package ru.example.newsreader.MainActivity;
 
 import android.arch.persistence.room.Room;
@@ -16,11 +17,11 @@ import java.util.List;
 import ru.example.newsreader.R;
 import ru.example.newsreader.models.Article;
 import ru.example.newsreader.room.AppDatabase;
-import ru.example.newsreader.room.Migrations;
+import ru.example.newsreader.room.MigrationsKt;
 
 public class MainActivity extends AppCompatActivity implements MainActivityView{
 
-    private MainActivityPresenter presenter;
+    private MainPresenterKt presenter;
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -37,14 +38,16 @@ public class MainActivity extends AppCompatActivity implements MainActivityView{
 
         Stetho.initializeWithDefaults(this);
 
+
+
         database = Room.databaseBuilder(getApplicationContext(),
                 AppDatabase.class, "rss2-database")
-                .addMigrations(Migrations.MIGRATION_1_2, Migrations.MIGRATION_2_3, Migrations.MIGRATION_3_4,
-                        Migrations.MIGRATION_4_5)
+                .addMigrations(MigrationsKt.INSTANCE.getMIGRATION_1_2(), MigrationsKt.INSTANCE.getMIGRATION_2_3(), MigrationsKt.INSTANCE.getMIGRATION_3_4(),
+                        MigrationsKt.INSTANCE.getMIGRATION_4_5())
                 .fallbackToDestructiveMigration()
                 .build();
 
-        presenter = new MainActivityPresenter(this, database);
+        presenter = new MainPresenterKt(this, database, getApplicationContext());
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
@@ -74,8 +77,9 @@ public class MainActivity extends AppCompatActivity implements MainActivityView{
     @Override
     public void showArticles(List<Article> articleList) {
         if(articleList!=null){
-            mAdapter = new RVAdapter(articleList);
+            mAdapter = new RVAdapterKt(articleList);
             mRecyclerView.setAdapter(mAdapter);
         }
     }
 }
+

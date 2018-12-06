@@ -1,3 +1,4 @@
+/*
 package ru.example.newsreader.room.Dao;
 
 import android.arch.persistence.room.Dao;
@@ -29,3 +30,4 @@ public interface SourceDao {
 
 
 }
+*/

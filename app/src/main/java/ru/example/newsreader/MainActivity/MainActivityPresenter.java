@@ -1,3 +1,4 @@
+/*
 package ru.example.newsreader.MainActivity;
 
 import android.content.Context;
@@ -8,36 +9,33 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import ru.example.newsreader.App;
-import ru.example.newsreader.Utils;
+import ru.example.newsreader.UtilsKt;
 import ru.example.newsreader.models.Article;
 import ru.example.newsreader.models.RSSFeed;
-import ru.example.newsreader.retrofit.RetrofitClient;
+import ru.example.newsreader.retrofit.RetrofitClientKt;
 import ru.example.newsreader.room.AppDatabase;
 import ru.example.newsreader.room.Entity.ArticleEntity;
 
 public class MainActivityPresenter {
     private MainActivityView mainActivityView;
     private Context context;
-    private AppDatabase appDatabase;
+    private AppDatabase appDatabaseKt;
 
-    MainActivityPresenter(MainActivityView mainActivityView, AppDatabase appDatabase){
+    MainActivityPresenter(MainActivityView mainActivityView, AppDatabase appDatabaseKt, Context context){
         this.mainActivityView=mainActivityView;
-        this.appDatabase = appDatabase;
+        this.appDatabaseKt = appDatabaseKt;
+        this.context = context;
     }
 
     public void downloadArticles(){
-        if (Utils.hasConnection(App.getContext())) {
-            new RetrofitClient().getArticles().enqueue(new Callback<RSSFeed>() {
+        if (UtilsKt.Companion.hasConnection(context)) {
+            new RetrofitClientKt().getArticles().enqueue(new Callback<RSSFeed>() {
                 @Override
                 public void onResponse(Call<RSSFeed> call, Response<RSSFeed> response) {
                     mainActivityView.showArticles(response.body().getArticleList());
                     new Thread(() -> {
-                        try {
-                            if(getArticlesFromDB().size()>0){}
-                            else saveArticles(response.body().getArticleList());
-                        } catch (Exception e) {
-                        }
+                        if(getArticlesFromDB().size()>0){}
+                        else saveArticles(response.body().getArticleList());
                     }).start();
                 }
                 @Override
@@ -59,7 +57,7 @@ public class MainActivityPresenter {
         Thread t = new Thread() {
             public void run() {
                 for (Article article: articles) {
-                    appDatabase.getArticleDao().insert(article.convertToArticleEntity());
+                    appDatabaseKt.getArticleDao().insert(article.convertToArticleEntity());
                 }
             }
         };
@@ -68,7 +66,7 @@ public class MainActivityPresenter {
     }
 
     private List<Article> getArticlesFromDB(){
-        List<ArticleEntity> articleEntities = appDatabase.getArticleDao().getAllArticles();
+        List<ArticleEntity> articleEntities = appDatabaseKt.getArticleDao().getAllArticles();
         List<Article> articleList = new ArrayList<>();
         for (ArticleEntity articleEntity: articleEntities) {
             articleList.add(articleEntity.convertToArticle());
@@ -78,9 +76,9 @@ public class MainActivityPresenter {
 
     public void deleteArticlesFromDB(){
         new Thread(() -> {
-            appDatabase.getArticleDao().deleteAll();
+            appDatabaseKt.getArticleDao().deleteAll();
             try {
-                appDatabase.getArticleDao().deleteAll();
+                appDatabaseKt.getArticleDao().deleteAll();
             }
             catch (Exception e) {
 
@@ -98,3 +96,4 @@ public class MainActivityPresenter {
         }).start();
     }
 }
+*/

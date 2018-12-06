@@ -1,3 +1,4 @@
+
 package ru.example.newsreader.models;
 
 import org.simpleframework.xml.Element;

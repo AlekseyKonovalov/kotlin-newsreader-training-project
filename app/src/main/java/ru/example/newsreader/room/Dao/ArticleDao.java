@@ -1,3 +1,4 @@
+/*
 package ru.example.newsreader.room.Dao;
 
 import android.arch.persistence.room.Dao;
@@ -27,6 +28,9 @@ public interface ArticleDao {
     @Query("DELETE FROM ArticleEntity")
     void deleteAll();
 
-   /* @Query("SELECT * FROM ArticleEntity WHERE source=:source")
-    List<ArticleEntity> findArticlesForSource(final String source);*/
+   */
+/* @Query("SELECT * FROM ArticleEntity WHERE source=:source")
+    List<ArticleEntity> findArticlesForSource(final String source);*//*
+
 }
+*/

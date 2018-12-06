@@ -1,3 +1,4 @@
+/*
 package ru.example.newsreader.MainActivity;
 
 import android.content.Intent;
@@ -55,17 +56,16 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.ArticlesViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ArticlesViewHolder personViewHolder, int i) {
-        personViewHolder.title.setText(articles.get(i).getTitle());
+        if(articles.get(i).getTitle()!=null){
+            personViewHolder.title.setText(articles.get(i).getTitle());
+        }
         personViewHolder.pubDate.setText("Опубликовано: " + articles.get(i).getPubDate());
         personViewHolder.description.setText(articles.get(i).getDescription());
 
-        personViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Uri uri = Uri.parse(articles.get(i).getLink());
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                App.getContext().startActivity(intent);
-            }
+        personViewHolder.itemView.setOnClickListener(v -> {
+            Uri uri = Uri.parse(articles.get(i).getLink());
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            App.getContext().startActivity(intent);
         });
     }
 
@@ -74,3 +74,4 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.ArticlesViewHolder
         return articles.size();
     }
 }
+*/

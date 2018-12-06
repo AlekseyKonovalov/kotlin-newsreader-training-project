@@ -1,3 +1,4 @@
+/*
 package ru.example.newsreader;
 
 import android.app.Application;
@@ -16,4 +17,4 @@ public class App extends Application {
         super.onCreate();
         context = getApplicationContext();
     }
-}
+}*/
