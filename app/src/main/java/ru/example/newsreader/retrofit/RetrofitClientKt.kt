@@ -1,7 +1,8 @@
 package ru.example.newsreader.retrofit
 
-import retrofit2.Call
+import io.reactivex.Observable
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.simplexml.SimpleXmlConverterFactory
 import ru.example.newsreader.models.RSSFeed
 
@@ -12,11 +13,12 @@ class RetrofitClientKt {
     init {
         retrofit=Retrofit.Builder()
                 .baseUrl(BASE_URL)
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(SimpleXmlConverterFactory.create())
                 .build()
     }
 
-    fun getArticles() : Call<RSSFeed>? {
+    fun getArticles() : Observable<RSSFeed>? {
         val service = retrofit?.create(HabrServiceKt::class.java)
         val repos = service?.getArticles()
         return repos

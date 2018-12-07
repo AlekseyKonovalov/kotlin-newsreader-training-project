@@ -1,4 +1,5 @@
 
+
 package ru.example.newsreader.models;
 
 import org.simpleframework.xml.Element;
@@ -17,7 +18,7 @@ public class RSSFeed {
 
     @ElementList(name="item", inline=true)
     @Path("channel")
-    private List<Article> articleList;
+    private List<ArticleKt> articleList;
 
     public String getChannelTitle() {
         return channelTitle;
@@ -27,13 +28,14 @@ public class RSSFeed {
         this.channelTitle = channelTitle;
     }
 
-    public List<Article> getArticleList() {
+    public List<ArticleKt> getArticleList() {
         return articleList;
     }
 
-    public void setArticleList(List<Article> articleList) {
+    public void setArticleList(List<ArticleKt> articleList) {
         this.articleList = articleList;
     }
 
 
 }
+

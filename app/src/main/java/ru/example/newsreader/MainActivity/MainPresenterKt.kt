@@ -1,23 +1,22 @@
 package ru.example.newsreader.MainActivity
 
 import android.content.Context
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import android.util.Log
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import ru.example.newsreader.UtilsKt
-import ru.example.newsreader.models.Article
-import ru.example.newsreader.models.RSSFeed
+import ru.example.newsreader.models.ArticleKt
 import ru.example.newsreader.retrofit.RetrofitClientKt
 import ru.example.newsreader.room.AppDatabase
 import java.util.*
 
 class MainPresenterKt (private val mainActivityView: MainActivityViewKt, private val appDatabase: AppDatabase, private val context: Context) {
 
-    private val articlesFromDB: List<Article>
+    private val articlesFromDB: List<ArticleKt>
         get() {
 
-            val articleEntities = appDatabase.getArticleDao().getAllArticles()
-            val articleList = ArrayList<Article>()
+            val articleEntities = appDatabase.articleDao.getAllArticles()
+            val articleList = ArrayList<ArticleKt>()
             for (articleEntity in articleEntities) {
                 articleList.add(articleEntity.convertToArticle())
             }
@@ -27,37 +26,49 @@ class MainPresenterKt (private val mainActivityView: MainActivityViewKt, private
     fun downloadArticles() {
         if (UtilsKt.hasConnection(context)) {
 
-            RetrofitClientKt().getArticles()?.enqueue(object : Callback<RSSFeed> {
-                override fun onResponse(call: Call<RSSFeed>, response: Response<RSSFeed>) {
-                    response.body()?.articleList?.let { mainActivityView.showArticles(it) }
-                    Thread {
-                        try {
-                            if (articlesFromDB.isEmpty()) {
-                                response.body()?.articleList?.let { saveArticles(it) }
+            RetrofitClientKt().getArticles()
+                    ?.subscribeOn(Schedulers.io())
+                    ?.observeOn(AndroidSchedulers.mainThread())
+/*                    ?.subscribeBy(
+                    onNext = {
+                        mainActivityView.showArticles(it.articleList!!)
+                        Thread {
+                            if(articlesFromDB.isNotEmpty()){
+                                deleteArticlesFromDB()
                             }
+                            saveArticles(it.articleList)
+                        }.start()
+                    },
+                    onComplete = {
+                        Log.d("Complete", "Complete")
+                    },
+                    onError = {
+                        Log.d("retrofitError", it.toString())
+                    }
+                    )*/
+                    ?.subscribe(
+                            { response -> mainActivityView.showArticles(response.articleList!!)
+                                Thread {
+                                    if(articlesFromDB.isNotEmpty()){
+                                        deleteArticlesFromDB()
+                                    }
+                                    saveArticles(response.articleList)
+                                }.start()},
+                            { error -> Log.d("retrofitError", error.toString())}
+                    )
 
-                        } catch (e: Exception) {
-                        }
-                    }.start()
-                }
-                override fun onFailure(call: Call<RSSFeed>, t: Throwable) {}
-            })
-
-
-        } else {
+        }
+        else {
             Thread {
-                try {
-                    mainActivityView.showArticles(articlesFromDB)
-                } catch (e: Exception) {
-                }
+                mainActivityView.showArticles(articlesFromDB)
             }.start()
         }
     }
 
-    private fun saveArticles(articles: List<Article>) {
+    private fun saveArticles(articles: List<ArticleKt>) {
         Thread{
             for (article in articles) {
-                appDatabase.articleDao.insert(article.convertToArticleEntity()!!)
+                appDatabase.articleDao.insert(article.convertToArticleEntity())
             }
         }.start()
 
@@ -65,20 +76,11 @@ class MainPresenterKt (private val mainActivityView: MainActivityViewKt, private
 
     fun deleteArticlesFromDB() {
         Thread {
-            appDatabase.getArticleDao().deleteAll()
+            appDatabase.articleDao.deleteAll()
             try {
-                appDatabase.getArticleDao().deleteAll()
+                appDatabase.articleDao.deleteAll()
             } catch (e: Exception) {
 
-            }
-        }.start()
-    }
-
-    fun getArticlesInSource() {
-        Thread {
-            try {
-                //List<ArticleEntity> articleEntities = appDatabase.getArticleDao().findArticlesForSource("habr.com");
-            } catch (e: Exception) {
             }
         }.start()
     }

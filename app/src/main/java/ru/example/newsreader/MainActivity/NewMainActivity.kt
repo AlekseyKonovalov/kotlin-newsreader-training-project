@@ -10,12 +10,12 @@ import android.view.Menu
 import android.view.MenuItem
 import com.facebook.stetho.Stetho
 import ru.example.newsreader.R
-import ru.example.newsreader.models.Article
+import ru.example.newsreader.models.ArticleKt
 import ru.example.newsreader.room.AppDatabase
 import ru.example.newsreader.room.MigrationsKt
 
 interface MainActivityViewKt{
-    fun showArticles(articleList : List<Article>)
+    fun showArticles(articleList: List<ArticleKt>)
 }
 
 class NewMainActivity : AppCompatActivity(), MainActivityViewKt {
@@ -48,12 +48,11 @@ class NewMainActivity : AppCompatActivity(), MainActivityViewKt {
             mLayoutManager = LinearLayoutManager(this)
             mRecyclerView?.layoutManager = mLayoutManager
 
-            presenter?.getArticlesInSource()
             presenter?.downloadArticles()
         }
     }
 
-    override fun showArticles(articleList: List<Article>) {
+    override fun showArticles(articleList: List<ArticleKt>) {
         mAdapter = RVAdapterKt(articleList)
         mRecyclerView?.adapter = mAdapter
     }

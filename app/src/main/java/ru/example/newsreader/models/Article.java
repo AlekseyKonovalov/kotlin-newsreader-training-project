@@ -1,3 +1,4 @@
+/*
 
 package ru.example.newsreader.models;
 
@@ -67,3 +68,4 @@ public class Article {
         return new ArticleEntity(this.title, this.description, this.pubDate, this.link, this.link.split("/")[2]);
     }
 }
+*/
