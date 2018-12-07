@@ -6,15 +6,15 @@ import org.jetbrains.annotations.NotNull
 import ru.example.newsreader.models.Article
 
 @Entity
-class ArticleEntity {
-    @NotNull
-    @PrimaryKey
-    lateinit var title : String
-    var description : String ?  = null
-    var pubDate : String ? = null
-    var link : String ? = null
-    var source : String ? = null
-
+class ArticleEntity(
+        @NotNull
+        @PrimaryKey
+        var title : String,
+        var description : String,
+        var pubDate : String,
+        var link : String,
+        var source : String
+) {
     fun convertToArticle() : Article {
         var article = Article()
         article.title = this.title

@@ -1,3 +1,4 @@
+/*
 
 package ru.example.newsreader.MainActivity;
 
@@ -39,7 +40,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityView{
         Stetho.initializeWithDefaults(this);
 
 
-
         database = Room.databaseBuilder(getApplicationContext(),
                 AppDatabase.class, "rss2-database")
                 .addMigrations(MigrationsKt.INSTANCE.getMIGRATION_1_2(), MigrationsKt.INSTANCE.getMIGRATION_2_3(), MigrationsKt.INSTANCE.getMIGRATION_3_4(),
@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityView{
                 .fallbackToDestructiveMigration()
                 .build();
 
-        presenter = new MainPresenterKt(this, database, getApplicationContext());
+        //presenter = new MainPresenterKt(this, database, getApplicationContext());
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
@@ -83,3 +83,4 @@ public class MainActivity extends AppCompatActivity implements MainActivityView{
     }
 }
 
+*/

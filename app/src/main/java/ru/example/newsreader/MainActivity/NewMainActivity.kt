@@ -1,9 +1,7 @@
-/*
 package ru.example.newsreader.MainActivity
 
 import android.arch.persistence.room.Room
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -20,7 +18,7 @@ interface MainActivityViewKt{
     fun showArticles(articleList : List<Article>)
 }
 
-class MainActivityKt : AppCompatActivity(), MainActivityViewKt {
+class NewMainActivity : AppCompatActivity(), MainActivityViewKt {
 
     private var mRecyclerView: RecyclerView? = null
     private var mAdapter: RVAdapterKt? = null
@@ -28,8 +26,8 @@ class MainActivityKt : AppCompatActivity(), MainActivityViewKt {
     private var database: AppDatabase? = null
     private var presenter : MainPresenterKt? = null
 
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         val toolbar : Toolbar = findViewById(R.id.toolbar)
@@ -53,8 +51,6 @@ class MainActivityKt : AppCompatActivity(), MainActivityViewKt {
             presenter?.getArticlesInSource()
             presenter?.downloadArticles()
         }
-
-
     }
 
     override fun showArticles(articleList: List<Article>) {
@@ -75,4 +71,4 @@ class MainActivityKt : AppCompatActivity(), MainActivityViewKt {
         menuInflater.inflate(R.menu.menu_activity_main, menu)
         return super.onCreateOptionsMenu(menu)
     }
-}*/
+}

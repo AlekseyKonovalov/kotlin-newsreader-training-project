@@ -11,7 +11,7 @@ import ru.example.newsreader.retrofit.RetrofitClientKt
 import ru.example.newsreader.room.AppDatabase
 import java.util.*
 
-class MainPresenterKt (private val mainActivityView: MainActivityView, private val appDatabase: AppDatabase, private val context: Context) {
+class MainPresenterKt (private val mainActivityView: MainActivityViewKt, private val appDatabase: AppDatabase, private val context: Context) {
 
     private val articlesFromDB: List<Article>
         get() {
@@ -26,6 +26,7 @@ class MainPresenterKt (private val mainActivityView: MainActivityView, private v
 
     fun downloadArticles() {
         if (UtilsKt.hasConnection(context)) {
+
             RetrofitClientKt().getArticles()?.enqueue(object : Callback<RSSFeed> {
                 override fun onResponse(call: Call<RSSFeed>, response: Response<RSSFeed>) {
                     response.body()?.articleList?.let { mainActivityView.showArticles(it) }
@@ -39,9 +40,10 @@ class MainPresenterKt (private val mainActivityView: MainActivityView, private v
                         }
                     }.start()
                 }
-
                 override fun onFailure(call: Call<RSSFeed>, t: Throwable) {}
             })
+
+
         } else {
             Thread {
                 try {

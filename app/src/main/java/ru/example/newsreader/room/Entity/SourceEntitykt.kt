@@ -12,5 +12,5 @@ data class SourceEntity (
         @ColumnInfo
         var name : String,
         @ColumnInfo
-        var url : String ?
+        var url : String
 )

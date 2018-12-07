@@ -1,3 +1,4 @@
+/*
 
 package ru.example.newsreader.MainActivity;
 
@@ -9,3 +10,4 @@ public interface MainActivityView {
     public void showArticles(List<Article> articleList);
 }
 
+*/

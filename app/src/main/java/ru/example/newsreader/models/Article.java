@@ -64,12 +64,6 @@ public class Article {
     }
 
     public ArticleEntity convertToArticleEntity(){
-        ArticleEntity articleEntity = new ArticleEntity();
-        articleEntity.setTitle(this.title);
-        articleEntity.setDescription(this.description);
-        articleEntity.setPubDate(this.pubDate);
-        articleEntity.setLink(this.link);
-        articleEntity.setSource(this.link.split("/")[2]);
-        return  articleEntity;
+        return new ArticleEntity(this.title, this.description, this.pubDate, this.link, this.link.split("/")[2]);
     }
 }
