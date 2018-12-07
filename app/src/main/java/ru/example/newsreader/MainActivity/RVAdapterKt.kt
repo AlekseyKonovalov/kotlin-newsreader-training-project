@@ -19,8 +19,9 @@ class RVAdapterKt(private val articles: List<ArticleKt>) : RecyclerView.Adapter<
         val title: TextView = itemView.findViewById<View>(R.id.title) as TextView
         val pubDate: TextView = itemView.findViewById<View>(R.id.pub_date) as TextView
         val description: TextView = itemView.findViewById<View>(R.id.desc) as TextView
-
     }
+
+
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ArticlesViewHolder {
         val v = LayoutInflater.from(viewGroup.context).inflate(R.layout.item, viewGroup, false)
@@ -28,6 +29,7 @@ class RVAdapterKt(private val articles: List<ArticleKt>) : RecyclerView.Adapter<
     }
 
     override fun onBindViewHolder(personViewHolder: ArticlesViewHolder, i: Int) {
+
         personViewHolder.title.text = articles[i].title
         personViewHolder.pubDate.text = "Опубликовано: ${articles[i].pubDate}"
         articles[i].description?.let {description ->
