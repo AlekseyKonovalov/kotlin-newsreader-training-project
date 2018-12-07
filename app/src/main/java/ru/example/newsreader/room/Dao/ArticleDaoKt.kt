@@ -5,7 +5,7 @@ import ru.example.newsreader.room.Entity.ArticleEntity
 
 @Dao
 interface ArticleDaoKt {
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(article : ArticleEntity)
 
     @Update
