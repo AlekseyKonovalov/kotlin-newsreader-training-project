@@ -43,7 +43,7 @@ class NewMainActivity : AppCompatActivity(), MainActivityViewKt {
                 .build()
 
         database?.let {
-            presenter = MainPresenterKt(this, it, applicationContext)
+            presenter = MainPresenterKtImpl(this, it, applicationContext)
             mRecyclerView = findViewById(R.id.recycler_view)
             mLayoutManager = LinearLayoutManager(this)
             mRecyclerView?.layoutManager = mLayoutManager

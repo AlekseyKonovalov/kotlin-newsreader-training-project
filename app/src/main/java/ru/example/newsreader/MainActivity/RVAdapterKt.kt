@@ -21,8 +21,6 @@ class RVAdapterKt(private val articles: List<ArticleKt>) : RecyclerView.Adapter<
         val description: TextView = itemView.findViewById<View>(R.id.desc) as TextView
     }
 
-
-
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ArticlesViewHolder {
         val v = LayoutInflater.from(viewGroup.context).inflate(R.layout.item, viewGroup, false)
         return ArticlesViewHolder(v)

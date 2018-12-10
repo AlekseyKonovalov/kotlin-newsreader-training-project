@@ -1,7 +1,7 @@
 package ru.example.newsreader.MainActivity
 
-import android.annotation.SuppressLint
 import android.arch.lifecycle.Lifecycle
+import android.arch.lifecycle.LifecycleObserver
 import android.arch.lifecycle.OnLifecycleEvent
 import android.content.Context
 import android.util.Log
@@ -16,15 +16,23 @@ import ru.example.newsreader.retrofit.RetrofitClientKt
 import ru.example.newsreader.room.AppDatabase
 import ru.example.newsreader.room.Entity.ArticleEntity
 
-class MainPresenterKt (private var mainActivityView : MainActivityViewKt?, private val appDatabase: AppDatabase, private val context: Context) {
+interface MainPresenterKt{
+    fun downloadArticles()
+    fun getArticlesFromDB(): Observable<List<ArticleEntity>>
+    fun saveArticles(articles: MutableList<ArticleKt>)
+    fun deleteArticlesFromDB()
+    fun detachView()
+}
+
+class MainPresenterKtImpl (private var mainActivityView : MainActivityViewKt?,
+                           private val appDatabase: AppDatabase,
+                           private val context: Context) : LifecycleObserver, MainPresenterKt {
 
     private val disposables = CompositeDisposable()
 
-    @SuppressLint("CheckResult")
-    fun downloadArticles() {
-
-        if (UtilsKt.hasConnection(context)) {
-            disposables+= RetrofitClientKt().getArticles()
+    override fun downloadArticles() {
+        disposables += if (UtilsKt.hasConnection(context)) {
+            RetrofitClientKt().getArticles()
                     ?.subscribeOn(Schedulers.io())
                     ?.observeOn(AndroidSchedulers.mainThread())
                     ?.subscribe(
@@ -32,37 +40,36 @@ class MainPresenterKt (private var mainActivityView : MainActivityViewKt?, priva
                                 mainActivityView?.showArticles(response.articleList!!)
                                 saveArticles(response.articleList)
                             },
-                            { error -> Log.d("retrofitError", error.toString()) }
-
-                    )!!
+                            { error -> Log.d("retrofitError", error.toString()) })!!
         }
         else {
-            disposables+= getArticlesFromDB()?.subscribe{mainActivityView?.showArticles(UtilsKt.convertArticleEntityToArticle(it))}
+            getArticlesFromDB().subscribe{mainActivityView?.showArticles(UtilsKt.convertArticleEntityToArticle(it))}
         }
     }
 
-    fun getArticlesFromDB(): Observable<List<ArticleEntity>> {
+    override fun getArticlesFromDB(): Observable<List<ArticleEntity>> {
         return Observable.fromCallable { appDatabase.articleDao.getAllArticles() }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
     }
 
 
-    private fun saveArticles(articles: MutableList<ArticleKt>) {
+    override fun saveArticles(articles: MutableList<ArticleKt>) {
         disposables+=Observable.fromCallable {articles}
                 .subscribeOn(Schedulers.io())
                 .flatMap { articles -> Observable.fromIterable(articles) }
                 .subscribe{ article -> appDatabase.articleDao.insert(article.convertToArticleEntity()) }
     }
 
-    fun deleteArticlesFromDB() {
+    override fun deleteArticlesFromDB() {
         disposables+=Observable.fromCallable {appDatabase}
                 .subscribeOn(Schedulers.io())
                 .subscribe{db -> db.articleDao.deleteAll()}
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-    fun detachView() {
+    override fun detachView() {
+        Log.d("ON_DESTROY", "dispose")
         disposables.dispose()
         mainActivityView = null
     }
