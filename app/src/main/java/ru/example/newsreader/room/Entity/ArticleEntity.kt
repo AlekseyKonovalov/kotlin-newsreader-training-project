@@ -16,11 +16,13 @@ class ArticleEntity(
         var source : String
 ) {
     fun convertToArticle() : ArticleKt {
-        var article = ArticleKt()
-        article.title = this.title
-        article.description=this.description
-        article.pubDate=this.pubDate
-        article.link=this.link
+        val article = ArticleKt()
+        this.apply {
+            article.title = title
+            article.description = description
+            article.pubDate = pubDate
+            article.link = link
+        }
         return article
     }
 }

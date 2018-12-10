@@ -10,21 +10,22 @@ class UtilsKt {
         fun hasConnection(context: Context): Boolean {
             val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
-            val wifiInfo = cm.activeNetworkInfo
+            val internetInfo = cm.activeNetworkInfo
 
 //        if (wifiInfo != null && wifiInfo.isConnected) {
 //            return true
 //        }
 //        return false
 
-            return wifiInfo != null && wifiInfo.isConnected
+            return internetInfo != null && internetInfo.isConnected
         }
+
         fun convertArticleEntityToArticle(articles : List<ArticleEntity>): MutableList<ArticleKt> {
             val articleList: MutableList<ArticleKt> = arrayListOf()
             for (articleEntity in articles) {
                 articleList.add(articleEntity.convertToArticle())
             }
             return articleList
-    }
+        }
     }
 }

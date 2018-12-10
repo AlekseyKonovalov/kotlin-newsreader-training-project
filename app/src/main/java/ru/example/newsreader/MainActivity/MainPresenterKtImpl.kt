@@ -32,15 +32,17 @@ class MainPresenterKtImpl (private var mainActivityView : MainActivityViewKt?,
 
     override fun downloadArticles() {
         disposables += if (UtilsKt.hasConnection(context)) {
-            RetrofitClientKt().getArticles()
-                    ?.subscribeOn(Schedulers.io())
-                    ?.observeOn(AndroidSchedulers.mainThread())
-                    ?.subscribe(
+            RetrofitClientKt().habrApi.getArticles()
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
                             { response ->
                                 mainActivityView?.showArticles(response.articleList!!)
                                 saveArticles(response.articleList)
                             },
-                            { error -> Log.d("retrofitError", error.toString()) })!!
+                            { error ->
+                                Log.d("retrofitError", error.toString())
+                            })
         }
         else {
             getArticlesFromDB().subscribe{mainActivityView?.showArticles(UtilsKt.convertArticleEntityToArticle(it))}
@@ -55,14 +57,14 @@ class MainPresenterKtImpl (private var mainActivityView : MainActivityViewKt?,
 
 
     override fun saveArticles(articles: MutableList<ArticleKt>) {
-        disposables+=Observable.fromCallable {articles}
+        disposables += Observable.fromCallable {articles}
                 .subscribeOn(Schedulers.io())
                 .flatMap { articles -> Observable.fromIterable(articles) }
                 .subscribe{ article -> appDatabase.articleDao.insert(article.convertToArticleEntity()) }
     }
 
     override fun deleteArticlesFromDB() {
-        disposables+=Observable.fromCallable {appDatabase}
+        disposables += Observable.fromCallable {appDatabase}
                 .subscribeOn(Schedulers.io())
                 .subscribe{db -> db.articleDao.deleteAll()}
     }
