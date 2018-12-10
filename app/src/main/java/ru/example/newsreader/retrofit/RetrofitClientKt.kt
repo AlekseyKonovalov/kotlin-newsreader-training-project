@@ -20,7 +20,6 @@ class RetrofitClientKt {
 
     fun getArticles() : Observable<RSSFeed>? {
         val service = retrofit?.create(HabrServiceKt::class.java)
-        val repos = service?.getArticles()
-        return repos
+        return service?.getArticles()
     }
 }
