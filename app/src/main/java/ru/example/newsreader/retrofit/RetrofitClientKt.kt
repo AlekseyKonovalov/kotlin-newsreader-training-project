@@ -1,3 +1,4 @@
+/*
 package ru.example.newsreader.retrofit
 
 import retrofit2.Retrofit
@@ -17,4 +18,4 @@ class RetrofitClientKt {
                 .build()
         habrApi = retrofit.create(HabrServiceKt::class.java)
     }
-}
+}*/
