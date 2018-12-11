@@ -7,9 +7,9 @@ import android.content.Context
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.plusAssign
-import ru.example.newsreader.utils.Utils
 import ru.example.newsreader.models.ArticleKt
 import ru.example.newsreader.room.entity.ArticleEntity
+import ru.example.newsreader.utils.Utils
 
 interface MainActivityPresenter{
     fun getArticles()
@@ -33,15 +33,18 @@ class MainActivityPresenterImpl (private val interactor: MainActivityInteractor,
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     override fun getArticles() {
+        view?.showProgressBar()
         if (Utils.hasConnection(context)){
             disposables += interactor.downloadArticles()
                     .subscribe { response ->
+                        view?.hideProgressBar()
                         view?.showArticles(response.articleList!!)
                         saveArticles(response.articleList)
             }
         }
         else {
             disposables += getArticlesFromDB().subscribe {
+                view?.hideProgressBar()
                 view?.showArticles(Utils.convertArticleEntityToArticle(it))
             }
         }
