@@ -21,15 +21,22 @@ interface MainPresenterKt{
     fun getArticlesFromDB(): Observable<List<ArticleEntity>>
     fun saveArticles(articles: MutableList<ArticleKt>)
     fun deleteArticlesFromDB()
+
     fun detachView()
+    fun attachView(view: MainActivityViewKt)
 }
 
-class MainPresenterKtImpl (private var mainActivityView : MainActivityViewKt?,
-                           private val appDatabase: AppDatabase,
+class MainPresenterKtImpl (private val appDatabase: AppDatabase,
                            private val context: Context) : LifecycleObserver, MainPresenterKt {
 
+    private var view: MainActivityViewKt? = null
     private val disposables = CompositeDisposable()
 
+    override fun attachView(view: MainActivityViewKt) {
+        this.view = view
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     override fun downloadArticles() {
         disposables += if (UtilsKt.hasConnection(context)) {
             RetrofitClientKt().habrApi.getArticles()
@@ -37,7 +44,7 @@ class MainPresenterKtImpl (private var mainActivityView : MainActivityViewKt?,
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
                             { response ->
-                                mainActivityView?.showArticles(response.articleList!!)
+                                view?.showArticles(response.articleList!!)
                                 saveArticles(response.articleList)
                             },
                             { error ->
@@ -45,7 +52,9 @@ class MainPresenterKtImpl (private var mainActivityView : MainActivityViewKt?,
                             })
         }
         else {
-            getArticlesFromDB().subscribe{mainActivityView?.showArticles(UtilsKt.convertArticleEntityToArticle(it))}
+            getArticlesFromDB().subscribe {
+                view?.showArticles(UtilsKt.convertArticleEntityToArticle(it))
+            }
         }
     }
 
@@ -59,8 +68,10 @@ class MainPresenterKtImpl (private var mainActivityView : MainActivityViewKt?,
     override fun saveArticles(articles: MutableList<ArticleKt>) {
         disposables += Observable.fromCallable {articles}
                 .subscribeOn(Schedulers.io())
-                .flatMap { articles -> Observable.fromIterable(articles) }
-                .subscribe{ article -> appDatabase.articleDao.insert(article.convertToArticleEntity()) }
+                .flatMap { articleList -> Observable.fromIterable(articleList) }
+                .subscribe{ article ->
+                    appDatabase.articleDao.insert(article.convertToArticleEntity())
+                }
     }
 
     override fun deleteArticlesFromDB() {
@@ -73,9 +84,8 @@ class MainPresenterKtImpl (private var mainActivityView : MainActivityViewKt?,
     override fun detachView() {
         Log.d("ON_DESTROY", "dispose")
         disposables.dispose()
-        mainActivityView = null
+        view = null
     }
-
 }
 
 

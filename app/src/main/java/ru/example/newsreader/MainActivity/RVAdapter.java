@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import ru.example.newsreader.App;
+import ru.example.newsreader.App.App;
 import ru.example.newsreader.R;
 import ru.example.newsreader.models.Article;
 
