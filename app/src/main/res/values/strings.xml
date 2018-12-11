@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Newsreader</string>
+    <string name="no_articles_text"><![CDATA[Новостей нет\n:(]]></string>
 </resources>

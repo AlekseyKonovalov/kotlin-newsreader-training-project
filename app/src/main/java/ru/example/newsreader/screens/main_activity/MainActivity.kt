@@ -2,6 +2,7 @@ package ru.example.newsreader.screens.main_activity
 
 import android.os.Bundle
 import android.support.v4.widget.ContentLoadingProgressBar
+import android.support.v7.widget.AppCompatTextView
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
@@ -23,10 +24,13 @@ interface MainActivityView{
 
     fun hideProgressBar()
 
+    fun showNoArticlesText()
+
     fun initViews()
 }
 
 class MainActivity :  DaggerAppCompatActivity(), MainActivityView {
+
     @Inject
     lateinit var presenter : MainActivityPresenter
 
@@ -35,7 +39,8 @@ class MainActivity :  DaggerAppCompatActivity(), MainActivityView {
     private var mLayoutManager: RecyclerView.LayoutManager? = null
 
     private var mProgressBar : ContentLoadingProgressBar? = null
-    private var mArticlesView: LinearLayout ? = null
+    private var mArticlesView: LinearLayout? = null
+    private var mNoArticlesText: AppCompatTextView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,10 +64,15 @@ class MainActivity :  DaggerAppCompatActivity(), MainActivityView {
         mProgressBar?.visibility = View.VISIBLE
     }
 
+    override fun showNoArticlesText() {
+        mNoArticlesText?.visibility = View.VISIBLE
+    }
+
 
     override fun initViews() {
         mArticlesView=findViewById(R.id.articles_view)
         mProgressBar = findViewById(R.id.progressbar)
+        mNoArticlesText = findViewById(R.id.no_articles_text)
 
         mRecyclerView = findViewById(R.id.recycler_view)
         mLayoutManager = LinearLayoutManager(this)

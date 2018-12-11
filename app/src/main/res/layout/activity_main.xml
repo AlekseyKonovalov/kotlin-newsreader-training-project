@@ -13,10 +13,21 @@
         <android.support.v4.widget.ContentLoadingProgressBar
             android:id="@+id/progressbar"
             style="?android:attr/progressBarStyleLarge"
+            android:visibility="gone"
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:layout_gravity="center"
             />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/no_articles_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:visibility="gone"
+            android:textSize="30dp"
+            android:text="@string/no_articles_text"/>
 
         <LinearLayout
             android:id="@+id/articles_view"

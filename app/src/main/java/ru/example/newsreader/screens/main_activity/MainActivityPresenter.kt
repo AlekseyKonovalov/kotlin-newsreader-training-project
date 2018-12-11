@@ -45,7 +45,8 @@ class MainActivityPresenterImpl (private val interactor: MainActivityInteractor,
         else {
             disposables += getArticlesFromDB().subscribe {
                 view?.hideProgressBar()
-                view?.showArticles(Utils.convertArticleEntityToArticle(it))
+                if(it.isNotEmpty()) view?.showArticles(Utils.convertArticleEntityToArticle(it))
+                else view?.showNoArticlesText()
             }
         }
     }
