@@ -12,11 +12,6 @@ class UtilsKt {
 
             val internetInfo = cm.activeNetworkInfo
 
-//        if (wifiInfo != null && wifiInfo.isConnected) {
-//            return true
-//        }
-//        return false
-
             return internetInfo != null && internetInfo.isConnected
         }
 
