@@ -24,7 +24,7 @@ class MainActivityInteractorImpl(private val appDatabase: AppDatabase, private v
     }
 
     override fun getArticlesFromDB(): Observable<List<ArticleEntity>> {
-        return Observable.fromCallable { appDatabase.articleDao.getAllArticles() }
+        return Observable.fromCallable { appDatabase.getArticleDao().getAllArticles() }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
     }
@@ -34,14 +34,14 @@ class MainActivityInteractorImpl(private val appDatabase: AppDatabase, private v
                 .subscribeOn(Schedulers.io())
                 .flatMap { articleList -> Observable.fromIterable(articleList) }
                 .subscribe{ article ->
-                    appDatabase.articleDao.insert(article.convertToArticleEntity())
+                    appDatabase.getArticleDao().insert(article.convertToArticleEntity())
                 }
     }
 
     override fun deleteArticlesFromDB() {
         Observable.fromCallable {appDatabase}
                 .subscribeOn(Schedulers.io())
-                .subscribe{db -> db.articleDao.deleteAll()}
+                .subscribe{db -> db.getArticleDao().deleteAll()}
     }
 
 }

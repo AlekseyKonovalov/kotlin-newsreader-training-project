@@ -1,4 +1,4 @@
-/*
+
 package ru.example.newsreader.room
 
 import android.arch.persistence.room.Database
@@ -8,10 +8,8 @@ import ru.example.newsreader.room.Dao.SourceDaoKt
 import ru.example.newsreader.room.Entity.ArticleEntity
 import ru.example.newsreader.room.Entity.SourceEntity
 
-@Database(entities = arrayOf(ArticleEntity::class, SourceEntity::class */
-/*, AnotherEntityType.class, AThirdEntityType.class *//*
-), version = 5)
-abstract class AppDatabaseKt : RoomDatabase() {
+@Database(entities = [ArticleEntity::class, SourceEntity::class], version = 5)
+abstract class AppDatabase : RoomDatabase() {
     abstract fun getArticleDao() : ArticleDaoKt
     abstract fun getSourceDao() : SourceDaoKt
-}*/
+}
