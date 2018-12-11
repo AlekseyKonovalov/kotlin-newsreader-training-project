@@ -11,23 +11,23 @@ import ru.example.newsreader.Utils
 import ru.example.newsreader.models.ArticleKt
 import ru.example.newsreader.room.Entity.ArticleEntity
 
-interface MainPresenterKt{
+interface MainActivityPresenter{
     fun getArticles()
     fun getArticlesFromDB(): Observable<List<ArticleEntity>>
     fun saveArticles(articles: MutableList<ArticleKt>)
     fun deleteArticlesFromDB()
 
     fun detachView()
-    fun attachView(view: MainActivityViewKt)
+    fun attachView(view: MainActivityView)
 }
 
-class MainPresenterKtImpl (private val interactor: MainActivityInteractor,
-                           val context: Context) : LifecycleObserver, MainPresenterKt {
+class MainActivityPresenterImpl (private val interactor: MainActivityInteractor,
+                                 val context: Context) : LifecycleObserver, MainActivityPresenter {
 
-    private var view: MainActivityViewKt? = null
+    private var view: MainActivityView? = null
     private val disposables = CompositeDisposable()
 
-    override fun attachView(view: MainActivityViewKt) {
+    override fun attachView(view: MainActivityView) {
         this.view = view
     }
 

@@ -12,17 +12,17 @@ import ru.example.newsreader.R
 import ru.example.newsreader.models.ArticleKt
 import javax.inject.Inject
 
-interface MainActivityViewKt{
+interface MainActivityView{
     fun showArticles(articleList: List<ArticleKt>)
 }
 
-class NewMainActivity :  DaggerAppCompatActivity(), MainActivityViewKt {
+class MainActivity :  DaggerAppCompatActivity(), MainActivityView {
 
     @Inject
-    lateinit var presenter : MainPresenterKt
+    lateinit var presenter : MainActivityPresenter
 
     private var mRecyclerView: RecyclerView? = null
-    private var mAdapter: RVAdapterKt? = null
+    private var mAdapter: RVAdapter? = null
     private var mLayoutManager: RecyclerView.LayoutManager? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,7 +40,7 @@ class NewMainActivity :  DaggerAppCompatActivity(), MainActivityViewKt {
     }
 
     override fun showArticles(articleList: List<ArticleKt>) {
-        mAdapter = RVAdapterKt(articleList)
+        mAdapter = RVAdapter(articleList)
         mRecyclerView?.adapter = mAdapter
     }
 

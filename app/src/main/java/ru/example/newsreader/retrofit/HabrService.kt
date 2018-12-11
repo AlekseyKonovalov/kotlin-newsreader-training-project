@@ -5,7 +5,7 @@ import io.reactivex.Observable
 import retrofit2.http.GET
 import ru.example.newsreader.models.RSSFeed
 
-interface HabrServiceKt {
+interface HabrService {
     @GET("rss/hubs/all/")
     fun getArticles(): Observable<RSSFeed>
 }

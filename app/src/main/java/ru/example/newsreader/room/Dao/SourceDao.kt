@@ -4,7 +4,7 @@ import android.arch.persistence.room.*
 import ru.example.newsreader.room.Entity.SourceEntity
 
 @Dao
-interface SourceDaoKt {
+interface SourceDao {
     @Insert
     fun insert(sourceEntity: SourceEntity)
 

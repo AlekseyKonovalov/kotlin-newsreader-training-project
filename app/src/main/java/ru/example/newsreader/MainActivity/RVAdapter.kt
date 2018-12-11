@@ -12,7 +12,7 @@ import ru.example.newsreader.R
 import ru.example.newsreader.models.ArticleKt
 
 
-class RVAdapterKt(private val articles: List<ArticleKt>) : RecyclerView.Adapter<RVAdapterKt.ArticlesViewHolder>() {
+class RVAdapter(private val articles: List<ArticleKt>) : RecyclerView.Adapter<RVAdapter.ArticlesViewHolder>() {
 
     class ArticlesViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView) {
         val cv: CardView = itemView.findViewById<View>(R.id.cv) as CardView

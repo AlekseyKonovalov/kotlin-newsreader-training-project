@@ -24,8 +24,8 @@ class ApiModule{
 
     @PerApplication
     @Provides
-    fun provideApi(retrofit: Retrofit): HabrServiceKt {
-        return retrofit.create(HabrServiceKt::class.java)
+    fun provideApi(retrofit: Retrofit): HabrService {
+        return retrofit.create(HabrService::class.java)
     }
 
 }
