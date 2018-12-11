@@ -1,4 +1,4 @@
-package ru.example.newsreader.App
+package ru.example.newsreader.app
 
 import dagger.android.AndroidInjector
 import dagger.android.support.DaggerApplication

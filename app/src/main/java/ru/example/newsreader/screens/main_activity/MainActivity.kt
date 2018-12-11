@@ -1,4 +1,4 @@
-package ru.example.newsreader.MainActivity
+package ru.example.newsreader.screens.main_activity
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -10,6 +10,7 @@ import com.facebook.stetho.Stetho
 import dagger.android.support.DaggerAppCompatActivity
 import ru.example.newsreader.R
 import ru.example.newsreader.models.ArticleKt
+import ru.example.newsreader.screens.main_activity.adapter.ArticlesAdapter
 import javax.inject.Inject
 
 interface MainActivityView{
@@ -22,7 +23,7 @@ class MainActivity :  DaggerAppCompatActivity(), MainActivityView {
     lateinit var presenter : MainActivityPresenter
 
     private var mRecyclerView: RecyclerView? = null
-    private var mAdapter: RVAdapter? = null
+    private var mAdapter: ArticlesAdapter? = null
     private var mLayoutManager: RecyclerView.LayoutManager? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,7 +41,7 @@ class MainActivity :  DaggerAppCompatActivity(), MainActivityView {
     }
 
     override fun showArticles(articleList: List<ArticleKt>) {
-        mAdapter = RVAdapter(articleList)
+        mAdapter = ArticlesAdapter(articleList)
         mRecyclerView?.adapter = mAdapter
     }
 

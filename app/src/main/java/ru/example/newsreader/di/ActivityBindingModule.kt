@@ -2,8 +2,8 @@ package ru.example.newsreader.di
 
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
-import ru.example.newsreader.MainActivity.MainActivityModule
-import ru.example.newsreader.MainActivity.MainActivity
+import ru.example.newsreader.screens.main_activity.MainActivityModule
+import ru.example.newsreader.screens.main_activity.MainActivity
 import ru.saray.app.di.PerActivity
 
 @Module

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity.MainActivity">
+    tools:context=".screens.main_activity.MainActivity">
     <item
         android:id="@+id/remove_db"
         android:icon="@drawable/ic_delete_white_24dp"

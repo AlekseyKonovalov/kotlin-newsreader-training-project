@@ -1,7 +1,7 @@
-package ru.example.newsreader.room.Dao
+package ru.example.newsreader.room.dao
 
 import android.arch.persistence.room.*
-import ru.example.newsreader.room.Entity.ArticleEntity
+import ru.example.newsreader.room.entity.ArticleEntity
 
 @Dao
 interface ArticleDao {

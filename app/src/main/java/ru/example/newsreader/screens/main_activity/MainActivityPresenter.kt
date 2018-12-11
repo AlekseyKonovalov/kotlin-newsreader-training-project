@@ -1,4 +1,4 @@
-package ru.example.newsreader.MainActivity
+package ru.example.newsreader.screens.main_activity
 
 import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleObserver
@@ -7,9 +7,9 @@ import android.content.Context
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.plusAssign
-import ru.example.newsreader.Utils
+import ru.example.newsreader.utils.Utils
 import ru.example.newsreader.models.ArticleKt
-import ru.example.newsreader.room.Entity.ArticleEntity
+import ru.example.newsreader.room.entity.ArticleEntity
 
 interface MainActivityPresenter{
     fun getArticles()

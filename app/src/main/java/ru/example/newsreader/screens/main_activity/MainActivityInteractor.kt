@@ -1,4 +1,4 @@
-package ru.example.newsreader.MainActivity
+package ru.example.newsreader.screens.main_activity
 
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -7,7 +7,7 @@ import ru.example.newsreader.models.ArticleKt
 import ru.example.newsreader.models.RSSFeed
 import ru.example.newsreader.retrofit.HabrService
 import ru.example.newsreader.room.AppDatabase
-import ru.example.newsreader.room.Entity.ArticleEntity
+import ru.example.newsreader.room.entity.ArticleEntity
 
 interface MainActivityInteractor{
     fun downloadArticles(): Observable<RSSFeed>

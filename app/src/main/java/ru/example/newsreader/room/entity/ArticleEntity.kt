@@ -1,4 +1,4 @@
-package ru.example.newsreader.room.Entity
+package ru.example.newsreader.room.entity
 
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey

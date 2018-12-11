@@ -2,7 +2,7 @@ package ru.example.newsreader.models
 
 import org.simpleframework.xml.Element
 import org.simpleframework.xml.Root
-import ru.example.newsreader.room.Entity.ArticleEntity
+import ru.example.newsreader.room.entity.ArticleEntity
 
 @Root(name = "item", strict = false)
 class ArticleKt () {

@@ -1,9 +1,9 @@
-package ru.example.newsreader
+package ru.example.newsreader.utils
 
 import android.content.Context
 import android.net.ConnectivityManager
 import ru.example.newsreader.models.ArticleKt
-import ru.example.newsreader.room.Entity.ArticleEntity
+import ru.example.newsreader.room.entity.ArticleEntity
 
 class Utils {
     companion object {

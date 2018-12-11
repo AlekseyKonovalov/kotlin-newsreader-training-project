@@ -1,4 +1,4 @@
-package ru.example.newsreader.MainActivity
+package ru.example.newsreader.screens.main_activity.adapter
 
 import android.content.Intent
 import android.net.Uri
@@ -12,7 +12,7 @@ import ru.example.newsreader.R
 import ru.example.newsreader.models.ArticleKt
 
 
-class RVAdapter(private val articles: List<ArticleKt>) : RecyclerView.Adapter<RVAdapter.ArticlesViewHolder>() {
+class ArticlesAdapter(private val articles: List<ArticleKt>) : RecyclerView.Adapter<ArticlesAdapter.ArticlesViewHolder>() {
 
     class ArticlesViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView) {
         val cv: CardView = itemView.findViewById<View>(R.id.cv) as CardView

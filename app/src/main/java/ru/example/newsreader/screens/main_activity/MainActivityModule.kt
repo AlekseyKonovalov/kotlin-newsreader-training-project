@@ -1,4 +1,4 @@
-package ru.example.newsreader.MainActivity
+package ru.example.newsreader.screens.main_activity
 
 import android.content.Context
 import dagger.Module
