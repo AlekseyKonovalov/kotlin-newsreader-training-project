@@ -3,7 +3,7 @@ package ru.example.newsreader.screens.main_activity
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import ru.example.newsreader.models.ArticleKt
+import ru.example.newsreader.models.Article
 import ru.example.newsreader.models.RSSFeed
 import ru.example.newsreader.retrofit.HabrService
 import ru.example.newsreader.room.AppDatabase
@@ -12,7 +12,7 @@ import ru.example.newsreader.room.entity.ArticleEntity
 interface MainActivityInteractor{
     fun downloadArticles(): Observable<RSSFeed>
     fun getArticlesFromDB(): Observable<List<ArticleEntity>>
-    fun saveArticles(articles: MutableList<ArticleKt>)
+    fun saveArticles(articles: MutableList<Article>)
     fun deleteArticlesFromDB()
 }
 
@@ -29,7 +29,7 @@ class MainActivityInteractorImpl(private val appDatabase: AppDatabase, private v
                 .observeOn(AndroidSchedulers.mainThread())
     }
 
-    override fun saveArticles(articles: MutableList<ArticleKt>) {
+    override fun saveArticles(articles: MutableList<Article>) {
         Observable.fromCallable {articles}
                 .subscribeOn(Schedulers.io())
                 .flatMap { articleList -> Observable.fromIterable(articleList) }

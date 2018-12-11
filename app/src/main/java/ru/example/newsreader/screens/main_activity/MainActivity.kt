@@ -13,12 +13,12 @@ import android.widget.LinearLayout
 import com.facebook.stetho.Stetho
 import dagger.android.support.DaggerAppCompatActivity
 import ru.example.newsreader.R
-import ru.example.newsreader.models.ArticleKt
+import ru.example.newsreader.models.Article
 import ru.example.newsreader.screens.main_activity.adapter.ArticlesAdapter
 import javax.inject.Inject
 
 interface MainActivityView{
-    fun showArticles(articleList: List<ArticleKt>)
+    fun showArticles(articleList: List<Article>)
 
     fun showProgressBar()
 
@@ -79,7 +79,7 @@ class MainActivity :  DaggerAppCompatActivity(), MainActivityView {
         mRecyclerView?.layoutManager = mLayoutManager
     }
 
-    override fun showArticles(articleList: List<ArticleKt>) {
+    override fun showArticles(articleList: List<Article>) {
         mAdapter = ArticlesAdapter(articleList)
         mRecyclerView?.adapter = mAdapter
     }

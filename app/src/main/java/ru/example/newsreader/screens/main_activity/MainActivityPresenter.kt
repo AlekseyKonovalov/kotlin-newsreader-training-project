@@ -7,14 +7,14 @@ import android.content.Context
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.plusAssign
-import ru.example.newsreader.models.ArticleKt
+import ru.example.newsreader.models.Article
 import ru.example.newsreader.room.entity.ArticleEntity
 import ru.example.newsreader.utils.Utils
 
 interface MainActivityPresenter{
     fun getArticles()
     fun getArticlesFromDB(): Observable<List<ArticleEntity>>
-    fun saveArticles(articles: MutableList<ArticleKt>)
+    fun saveArticles(articles: MutableList<Article>)
     fun deleteArticlesFromDB()
 
     fun detachView()
@@ -55,7 +55,7 @@ class MainActivityPresenterImpl (private val interactor: MainActivityInteractor,
         return interactor.getArticlesFromDB()
     }
 
-    override fun saveArticles(articles: MutableList<ArticleKt>) {
+    override fun saveArticles(articles: MutableList<Article>) {
         interactor.saveArticles(articles)
     }
 

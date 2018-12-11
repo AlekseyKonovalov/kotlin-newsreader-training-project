@@ -2,7 +2,7 @@ package ru.example.newsreader.utils
 
 import android.content.Context
 import android.net.ConnectivityManager
-import ru.example.newsreader.models.ArticleKt
+import ru.example.newsreader.models.Article
 import ru.example.newsreader.room.entity.ArticleEntity
 
 class Utils {
@@ -15,8 +15,8 @@ class Utils {
             return internetInfo != null && internetInfo.isConnected
         }
 
-        fun convertArticleEntityToArticle(articles : List<ArticleEntity>): MutableList<ArticleKt> {
-            val articleList: MutableList<ArticleKt> = arrayListOf()
+        fun convertArticleEntityToArticle(articles : List<ArticleEntity>): MutableList<Article> {
+            val articleList: MutableList<Article> = arrayListOf()
             for (articleEntity in articles) {
                 articleList.add(articleEntity.convertToArticle())
             }

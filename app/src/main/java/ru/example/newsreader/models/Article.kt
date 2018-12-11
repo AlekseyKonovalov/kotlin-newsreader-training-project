@@ -5,7 +5,7 @@ import org.simpleframework.xml.Root
 import ru.example.newsreader.room.entity.ArticleEntity
 
 @Root(name = "item", strict = false)
-class ArticleKt () {
+class Article {
     @field:Element(name = "title")
     var title: String?=null
 
@@ -23,3 +23,4 @@ class ArticleKt () {
         return ArticleEntity(this.title!!, this.description!!, this.pubDate!!, this.link!!, this.link?.split("/".toRegex())?.get(2)!!)
     }
 }
+

@@ -9,10 +9,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import ru.example.newsreader.R
-import ru.example.newsreader.models.ArticleKt
+import ru.example.newsreader.models.Article
 
 
-class ArticlesAdapter(private val articles: List<ArticleKt>) : RecyclerView.Adapter<ArticlesAdapter.ArticlesViewHolder>() {
+class ArticlesAdapter(private val articles: List<Article>) : RecyclerView.Adapter<ArticlesAdapter.ArticlesViewHolder>() {
 
     class ArticlesViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView) {
         val cv: CardView = itemView.findViewById<View>(R.id.cv) as CardView

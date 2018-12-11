@@ -18,7 +18,7 @@ public class RSSFeed {
 
     @ElementList(name="item", inline=true)
     @Path("channel")
-    private List<ArticleKt> articleList;
+    private List<Article> articleList;
 
     public String getChannelTitle() {
         return channelTitle;
@@ -28,11 +28,11 @@ public class RSSFeed {
         this.channelTitle = channelTitle;
     }
 
-    public List<ArticleKt> getArticleList() {
+    public List<Article> getArticleList() {
         return articleList;
     }
 
-    public void setArticleList(List<ArticleKt> articleList) {
+    public void setArticleList(List<Article> articleList) {
         this.articleList = articleList;
     }
 
