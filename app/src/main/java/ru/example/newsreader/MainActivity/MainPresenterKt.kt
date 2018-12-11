@@ -7,7 +7,7 @@ import android.content.Context
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.plusAssign
-import ru.example.newsreader.UtilsKt
+import ru.example.newsreader.Utils
 import ru.example.newsreader.models.ArticleKt
 import ru.example.newsreader.room.Entity.ArticleEntity
 
@@ -33,7 +33,7 @@ class MainPresenterKtImpl (private val interactor: MainActivityInteractor,
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     override fun getArticles() {
-        if (UtilsKt.hasConnection(context)){
+        if (Utils.hasConnection(context)){
             disposables += interactor.downloadArticles()
                     .subscribe { response ->
                         view?.showArticles(response.articleList!!)
@@ -42,7 +42,7 @@ class MainPresenterKtImpl (private val interactor: MainActivityInteractor,
         }
         else {
             disposables += getArticlesFromDB().subscribe {
-                view?.showArticles(UtilsKt.convertArticleEntityToArticle(it))
+                view?.showArticles(Utils.convertArticleEntityToArticle(it))
             }
         }
     }

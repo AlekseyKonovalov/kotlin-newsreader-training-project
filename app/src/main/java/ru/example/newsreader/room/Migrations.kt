@@ -3,7 +3,7 @@ package ru.example.newsreader.room
 import android.arch.persistence.db.SupportSQLiteDatabase
 import android.arch.persistence.room.migration.Migration
 
-class  MigrationsKt {
+class  Migrations {
     companion object {
 
         val MIGRATION_1_2 = object : Migration(1, 2) {

@@ -5,7 +5,7 @@ import android.net.ConnectivityManager
 import ru.example.newsreader.models.ArticleKt
 import ru.example.newsreader.room.Entity.ArticleEntity
 
-class UtilsKt {
+class Utils {
     companion object {
         fun hasConnection(context: Context): Boolean {
             val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager

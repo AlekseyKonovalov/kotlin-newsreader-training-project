@@ -4,7 +4,7 @@ import android.arch.persistence.room.*
 import ru.example.newsreader.room.Entity.ArticleEntity
 
 @Dao
-interface ArticleDaoKt {
+interface ArticleDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(article : ArticleEntity)
 
