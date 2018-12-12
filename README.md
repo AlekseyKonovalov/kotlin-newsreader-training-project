@@ -1,7 +1,6 @@
-# newsreader 
-rss client
+# newsreader - rss client
 
-Used technologies
+<b>Used technologies</b>
 - Kotlin
 - Room
 - RXJava2
