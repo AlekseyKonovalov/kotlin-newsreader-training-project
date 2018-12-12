@@ -35,13 +35,15 @@ class MainActivityInteractorImpl(private val appDatabase: AppDatabase,
     override fun saveArticles(articles: MutableList<Article>) {
         Completable.fromCallable {
             appDatabase.getArticleDao().insertAll(Utils.convertArticleListToArticleEntityList(articles))
-        }.subscribe()
+        }.subscribeOn(Schedulers.io())
+                .subscribe()
     }
 
     override fun deleteArticlesFromDB() {
         Completable.fromCallable {
             appDatabase.getArticleDao().deleteAll()
-        }.subscribe()
+        }.subscribeOn(Schedulers.io())
+                .subscribe()
     }
 
 }

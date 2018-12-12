@@ -1,5 +1,6 @@
 package ru.example.newsreader.screens.main_activity.adapter
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.support.v7.widget.CardView
@@ -12,7 +13,7 @@ import ru.example.newsreader.R
 import ru.example.newsreader.models.Article
 
 
-class ArticlesAdapter(private val articles: List<Article>) : RecyclerView.Adapter<ArticlesAdapter.ArticlesViewHolder>() {
+class ArticlesAdapter(private val articles: List<Article>, val context: Context) : RecyclerView.Adapter<ArticlesAdapter.ArticlesViewHolder>() {
 
     class ArticlesViewHolder (itemView: View) : RecyclerView.ViewHolder(itemView) {
         val cv: CardView = itemView.findViewById<View>(R.id.cv) as CardView
@@ -29,7 +30,8 @@ class ArticlesAdapter(private val articles: List<Article>) : RecyclerView.Adapte
     override fun onBindViewHolder(personViewHolder: ArticlesViewHolder, i: Int) {
 
         personViewHolder.title.text = articles[i].title
-        personViewHolder.pubDate.text = "Опубликовано: ${articles[i].pubDate}"
+
+        personViewHolder.pubDate.text =  String.format(context.getString(R.string.publish_date), articles[i].pubDate)
         articles[i].description?.let {description ->
             personViewHolder.description.text = description
         }
@@ -37,7 +39,6 @@ class ArticlesAdapter(private val articles: List<Article>) : RecyclerView.Adapte
         personViewHolder.itemView.setOnClickListener {
             val uri = Uri.parse(articles[i].link)
             val intent = Intent (Intent.ACTION_VIEW, uri)
-
             it.context.startActivity(intent)
         }
     }

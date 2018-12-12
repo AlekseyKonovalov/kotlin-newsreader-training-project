@@ -87,7 +87,7 @@ class MainActivity :  DaggerAppCompatActivity(), MainActivityView {
     }
 
     override fun showArticles(articleList: List<Article>) {
-        mAdapter = ArticlesAdapter(articleList)
+        mAdapter = ArticlesAdapter(articleList, this)
         mRecyclerView?.adapter = mAdapter
     }
 
