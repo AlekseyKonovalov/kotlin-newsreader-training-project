@@ -15,12 +15,20 @@ class Utils {
             return internetInfo != null && internetInfo.isConnected
         }
 
-        fun convertArticleEntityToArticle(articles : List<ArticleEntity>): MutableList<Article> {
+        fun convertArticleEntityListToArticleList(articles: List<ArticleEntity>): List<Article> {
             val articleList: MutableList<Article> = arrayListOf()
             for (articleEntity in articles) {
                 articleList.add(articleEntity.convertToArticle())
             }
             return articleList
+        }
+
+        fun convertArticleListToArticleEntityList(articles: List<Article>): List<ArticleEntity> {
+            val articleEntityList: MutableList<ArticleEntity> = arrayListOf()
+            for (article in articles) {
+                articleEntityList.add(article.convertToArticleEntity())
+            }
+            return articleEntityList
         }
     }
 }

@@ -1,5 +1,6 @@
 package ru.example.newsreader.screens.main_activity
 
+import io.reactivex.Completable
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -8,6 +9,7 @@ import ru.example.newsreader.models.RSSFeed
 import ru.example.newsreader.retrofit.HabrService
 import ru.example.newsreader.room.AppDatabase
 import ru.example.newsreader.room.entity.ArticleEntity
+import ru.example.newsreader.utils.Utils
 
 interface MainActivityInteractor{
     fun downloadArticles(): Observable<RSSFeed>
@@ -16,7 +18,8 @@ interface MainActivityInteractor{
     fun deleteArticlesFromDB()
 }
 
-class MainActivityInteractorImpl(private val appDatabase: AppDatabase, private val api: HabrService) : MainActivityInteractor{
+class MainActivityInteractorImpl(private val appDatabase: AppDatabase,
+                                 private val api: HabrService) : MainActivityInteractor{
     override fun downloadArticles(): Observable<RSSFeed> {
         return api.getArticles()
                 .subscribeOn(Schedulers.io())
@@ -30,18 +33,15 @@ class MainActivityInteractorImpl(private val appDatabase: AppDatabase, private v
     }
 
     override fun saveArticles(articles: MutableList<Article>) {
-        Observable.fromCallable {articles}
-                .subscribeOn(Schedulers.io())
-                .flatMap { articleList -> Observable.fromIterable(articleList) }
-                .subscribe{ article ->
-                    appDatabase.getArticleDao().insert(article.convertToArticleEntity())
-                }
+        Completable.fromCallable {
+            appDatabase.getArticleDao().insertAll(Utils.convertArticleListToArticleEntityList(articles))
+        }.subscribe()
     }
 
     override fun deleteArticlesFromDB() {
-        Observable.fromCallable {appDatabase}
-                .subscribeOn(Schedulers.io())
-                .subscribe{db -> db.getArticleDao().deleteAll()}
+        Completable.fromCallable {
+            appDatabase.getArticleDao().deleteAll()
+        }.subscribe()
     }
 
 }

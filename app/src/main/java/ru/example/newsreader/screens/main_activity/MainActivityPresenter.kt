@@ -21,7 +21,7 @@ interface MainActivityPresenter{
     fun attachView(view: MainActivityView)
 }
 
-class MainActivityPresenterImpl (private val interactor: MainActivityInteractor,
+class MainActivityPresenterImpl (val interactor: MainActivityInteractor,
                                  val context: Context) : LifecycleObserver, MainActivityPresenter {
 
     private var view: MainActivityView? = null
@@ -45,7 +45,7 @@ class MainActivityPresenterImpl (private val interactor: MainActivityInteractor,
         else {
             disposables += getArticlesFromDB().subscribe {
                 view?.hideProgressBar()
-                if(it.isNotEmpty()) view?.showArticles(Utils.convertArticleEntityToArticle(it))
+                if(it.isNotEmpty()) view?.showArticles(Utils.convertArticleEntityListToArticleList(it))
                 else view?.showNoArticlesText()
             }
         }

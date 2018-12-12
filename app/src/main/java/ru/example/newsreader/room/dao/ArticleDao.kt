@@ -8,6 +8,9 @@ interface ArticleDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(article : ArticleEntity)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAll(articleList: List<ArticleEntity>)
+
     @Update
     fun update(article: ArticleEntity)
 
