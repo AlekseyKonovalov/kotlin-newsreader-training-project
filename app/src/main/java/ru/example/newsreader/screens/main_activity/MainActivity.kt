@@ -1,5 +1,7 @@
 package ru.example.newsreader.screens.main_activity
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.widget.ContentLoadingProgressBar
 import android.support.v7.widget.AppCompatTextView
@@ -16,6 +18,11 @@ import ru.example.newsreader.R
 import ru.example.newsreader.models.Article
 import ru.example.newsreader.screens.main_activity.adapter.ArticlesAdapter
 import javax.inject.Inject
+
+fun startMainActivity(context: Context) {
+    val intent = Intent(context, MainActivity::class.java)
+    context.startActivity(intent)
+}
 
 interface MainActivityView{
     fun showArticles(articleList: List<Article>)
